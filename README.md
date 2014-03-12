@@ -28,3 +28,5 @@ Effets:
   2) un buffer existe sur le serveur REST pour enregister les mise-à-jours. Utile pour faire un IHM web si on a le temps..
   
   
+  
+Note : Le nginx viendra après
