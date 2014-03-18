@@ -18,7 +18,8 @@ Projet RICM4 2014 (BOEY Lionel et GUO Tianming)
       
 -Lancer le client dans un autre terminal
       $ python client.
-      Login : admin     MDP : admin
+      
+Login : admin     MDP : admin
       
        
       
