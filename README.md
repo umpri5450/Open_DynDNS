@@ -13,6 +13,9 @@ Projet RICM4 2014 (BOEY Lionel et GUO Tianming)
 -Installer psutil
 	$ pip install psutil
 	
+-Installer requests
+	$ pip install requests
+	
 -Installer OpenSSL
 	sudo apt-get install openssl
 
