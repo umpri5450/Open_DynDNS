@@ -15,10 +15,6 @@ import psutil
 import signal
 import os
 
-#for chmod
-import stat
-  
-
 # generate a JSON dictionary of hosts from a zone file
 def getDict(zonefile):
 	zone_file = open(zonefile, 'r')
