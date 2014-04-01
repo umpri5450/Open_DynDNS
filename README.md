@@ -25,9 +25,8 @@ Projet RICM4 2014 (BOEY Lionel et GUO Tianming)
 -On peut interroger le serverweb avec un navigateur sur l'adresse https://127.0.0.1:5000/hosts/host1
       
 -Lancer le client dans un autre terminal
-      $ python client.py
+      $ python client_ordi.py
       
 Login : admin     MDP : admin
             
-
-  
+PS : format de texte un peu pourri pour le README..
