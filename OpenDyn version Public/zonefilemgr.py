@@ -33,6 +33,8 @@ def getDict(zonefile):
 				hostipwithlinebreak = host[3]
 				hostip = hostipwithlinebreak[:-1] # we remove the linebreak in the the last string
 				my_dict[hostname] = {'ip' : hostip, 'rectype':hostrectype}
+			if(';endhostlist' in line):
+				pass
 	zone_file.close()
 	return my_dict
 	

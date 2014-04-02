@@ -12,6 +12,7 @@ from OpenSSL import SSL
 
 #database editing module
 import zonefilemgr
+import time
 
 #verification de login et mot de passe
 #il suffit ajouter @requires_auth devant ce qu'on veut proteger avec ce login et mot de passe
@@ -91,7 +92,6 @@ class Host(Resource):
 	zonefilemgr.updateHostIP(host_id, my_zone_file, new_ip, rectype)
 	#zonefilemgr.signalProc('named')
 	return modified_host, 201
-	return '', 404
  
 
 # Shows a list of all hosts
@@ -117,11 +117,11 @@ class HostList(Resource):
 api.add_resource(HostList, '/hosts')
 api.add_resource(Host, '/hosts/<string:host_id>')
 
-
 # main
 if __name__ == '__main__':
     #variables
     domain = 'testopendyn.com'
+    #my_zone_file = '/home/boey/Desktop/testFlask/db.testopendyn.com'
     my_zone_file = 'db.testopendyn.com'
     HOSTS = zonefilemgr.getDict(my_zone_file)
 
