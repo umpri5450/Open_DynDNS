@@ -77,7 +77,7 @@ class Host(Resource):
         abort_if_host_doesnt_exist(host_id)
         del HOSTS[host_id]
 	zonefilemgr.deleteHost(my_zone_file, host_id)
-	#zonefilemgr.signalProc('named')
+	zonefilemgr.signalProc('named')
         return '', 204
     
     @requires_auth
@@ -90,7 +90,7 @@ class Host(Resource):
 	rectype = args['rectype']
 	modified_host = modifyDict(host_id,new_ip,rectype)
 	zonefilemgr.updateHostIP(host_id, my_zone_file, new_ip, rectype)
-	#zonefilemgr.signalProc('named')
+	zonefilemgr.signalProc('named')
 	return modified_host, 201
  
 
@@ -110,7 +110,7 @@ class HostList(Resource):
 	rectype = args['rectype']
 	new_host = addHostToDict(host_id, ip, rectype)
 	zonefilemgr.addNewHost(my_zone_file,host_id,ip, rectype)
-	#zonefilemgr.signalProc('named')
+	zonefilemgr.signalProc('named')
         return new_host, 201
 
 # Set-up FLASK REST-ful API routing here
@@ -121,7 +121,7 @@ api.add_resource(Host, '/hosts/<string:host_id>')
 if __name__ == '__main__':
     #variables
     domain = 'testopendyn.com'
-    #my_zone_file = '/home/boey/Desktop/testFlask/db.testopendyn.com'
+    #my_zone_file = '/etc/bind/db.testopendyn.com'
     my_zone_file = 'db.testopendyn.com'
     HOSTS = zonefilemgr.getDict(my_zone_file)
 
