@@ -36,6 +36,7 @@ def getDict(zonefile):
 			if(';endhostlist' in line):
 				pass
 	zone_file.close()
+	os.chmod(zonefile,644)
 	return my_dict
 	
 
@@ -46,7 +47,8 @@ def updateHostIP(hostname, zonefile, hostip, rectype):
 	old_file = open(zonefile)
 	subst = str(hostname+'\tIN\t'+ rectype+'\t'+ hostip)
 	for line in old_file:
-		if hostname in line:
+		if hostname == line.split('\t')[0]:
+			print(line.split('\t')[0])
 			new_file.write(subst)
 			new_file.write('\n')
 		elif 'Serial' in line: #on incremente le serial a chaque modification
@@ -64,6 +66,7 @@ def updateHostIP(hostname, zonefile, hostip, rectype):
 	old_file.close()
 	remove(zonefile) #Remove original file
 	move(abs_path, zonefile) #Move new file
+	os.chmod(zonefile,644)
 
 
 # generate a default zonefile
@@ -84,6 +87,7 @@ def createZoneFile(zonename,domainip):
 	new_file.write(';hostlist\n')
 	new_file.write('\n')
 	new_file.write(';endhostlist\n')
+	os.chmod(zonefile,644)
 
 
 # add a new host in a zonefile
@@ -109,6 +113,7 @@ def addNewHost(zonefile, hostname, hostip, rectype):
 	old_file.close()
 	remove(zonefile)
 	move(abs_path, zonefile)
+	os.chmod(zonefile,644)
 
 
 # delete a host in a zonefile
@@ -117,7 +122,8 @@ def deleteHost(zonefile, hostname):
 	new_file = open(abs_path,'w')
 	old_file = open(zonefile)
 	for line in old_file:
-		if hostname in line:
+		if hostname == line.split('\t')[0]:
+			print(line.split('\t')[0])
 			pass # on passe si on voit l'hote a supprimer
 		elif 'Serial' in line: # on incremente le serial a chaque modification
 			for x in line.split():
@@ -134,6 +140,7 @@ def deleteHost(zonefile, hostname):
 	old_file.close()
 	remove(zonefile) #Remove original file
 	move(abs_path, zonefile) #Move new file
+	os.chmod(zonefile,644)
 
 
 # updates a process(named) by sending SIGHUP(reloads configurations files :D)

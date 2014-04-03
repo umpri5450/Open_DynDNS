@@ -61,6 +61,7 @@ if __name__ == "__main__":
 		print('Local IP of DNS server  : ' + serv_ip)
 	except:
 		print("Error in searching for DNS services")
+		sys.exit(0)
 	finally:
 		print('DNS server found....')
         	zc.close()
@@ -88,9 +89,9 @@ if __name__ == "__main__":
 		s.server = client_name
 		zc.checkService( s )
 		zc.registerService( s )
-	
 	except:
 		print("Error in name registration")
+		zc.close()
 
     	finally:
 		raw_input('Press <enter> to update DNS server via RESTs')
