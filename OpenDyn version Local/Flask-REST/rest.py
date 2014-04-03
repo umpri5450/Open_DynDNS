@@ -122,8 +122,8 @@ if __name__ == '__main__':
     #variables
     domain = 'testopendyn.com'
     #put actual path of zonefile in the bind directory
-    #my_zone_file = '/etc/bind/db.testopendyn.com'
-    my_zone_file = 'db.testopendyn.com'
+    my_zone_file = '/etc/bind/db.testopendyn.com'
+    #my_zone_file = 'db.testopendyn.com'
     HOSTS = zonefilemgr.getDict(my_zone_file)
 
     #creation de context SSL

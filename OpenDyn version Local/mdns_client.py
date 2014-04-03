@@ -6,6 +6,22 @@ import httprequests
 import localint
 from zeroconf.dns import ServiceInfo
 from zeroconf.mdns import Zeroconf
+import os
+
+# add a nameserver to /etc/resolv.conf
+def addNameserver(address):
+	fh, abs_path = mkstemp()
+	new_file = open(abs_path,'w')
+	old_file = open('/run/resolv.conf')
+	for line in old_file:
+		new_file.write(line)
+	new_file.write('nameserver\t'+address+'\n')
+	new_file.close()
+	close(fh)
+	old_file.close()
+	remove('/run/resolv.conf')
+	move(abs_path, '/run/resolv.conf')
+	os.chmod('/run/resolv.conf',644)
 
 # A listener class
 class MyListener(object):
@@ -31,6 +47,9 @@ class MyListener(object):
 	
 	def getServAddress(self):
 		return self.address
+
+# A function to add nameservers to resolv.conf
+
 
 # Main of the program
 if __name__ == "__main__":
@@ -59,6 +78,8 @@ if __name__ == "__main__":
 			serv_ip = listener.getServAddress()
 			test += test
 		print('Local IP of DNS server  : ' + serv_ip)
+		#update nameserver
+		#addNameserver(serv_ip)
 	except:
 		print("Error in searching for DNS services")
 		sys.exit(0)

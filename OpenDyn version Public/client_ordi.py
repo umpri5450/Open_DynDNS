@@ -70,7 +70,7 @@ if __name__ == '__main__':
 	Il faut mettre a jour le serveur au moins une fois avant de passer dans la boucle pour minimiser les requetes HTTP
 	'''
 	first_update = False
-	while(first_update == False):
+	while not first_update:
 		try:
 			putdata = {'ip': monip, 'rectype' : 'A'}
 			s_code = httprequests.httpPut(url,putdata)
@@ -85,7 +85,7 @@ if __name__ == '__main__':
 	Looping every x seconds
 	'''
 	print('Start loop')
-	while(1):
+	while True:
 		try:
 			print('Looping')
 			newip = getPublicIP(my_ip_server)

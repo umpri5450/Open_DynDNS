@@ -3,7 +3,7 @@
 ;
 $TTL	604800
 @	IN	SOA	ns.testopendyn.com. admin.testopendyn.com. (
-			18		; Serial
+			3		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire

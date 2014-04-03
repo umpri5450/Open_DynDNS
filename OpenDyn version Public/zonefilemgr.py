@@ -48,7 +48,6 @@ def updateHostIP(hostname, zonefile, hostip, rectype):
 	subst = str(hostname+'\tIN\t'+ rectype+'\t'+ hostip)
 	for line in old_file:
 		if hostname == line.split('\t')[0]:
-			print(line.split('\t')[0])
 			new_file.write(subst)
 			new_file.write('\n')
 		elif 'Serial' in line: #on incremente le serial a chaque modification
@@ -123,7 +122,6 @@ def deleteHost(zonefile, hostname):
 	old_file = open(zonefile)
 	for line in old_file:
 		if hostname == line.split('\t')[0]:
-			print(line.split('\t')[0])
 			pass # on passe si on voit l'hote a supprimer
 		elif 'Serial' in line: # on incremente le serial a chaque modification
 			for x in line.split():
@@ -152,4 +150,3 @@ def signalProc(proc_name):
 			print ('PID : ' + str(pid))
 			print (proc_name + ' is signaled with SIGHUP\n')	
 			os.kill(pid,signal.SIGHUP)
-
