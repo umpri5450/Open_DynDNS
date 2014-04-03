@@ -36,7 +36,7 @@ def getDict(zonefile):
 			if(';endhostlist' in line):
 				pass
 	zone_file.close()
-	os.chmod(zonefile,644)
+	os.chmod(zonefile,436)
 	return my_dict
 	
 
@@ -65,7 +65,7 @@ def updateHostIP(hostname, zonefile, hostip, rectype):
 	old_file.close()
 	remove(zonefile) #Remove original file
 	move(abs_path, zonefile) #Move new file
-	os.chmod(zonefile,644)
+	os.chmod(zonefile,436)
 
 
 # generate a default zonefile
@@ -86,7 +86,7 @@ def createZoneFile(zonename,domainip):
 	new_file.write(';hostlist\n')
 	new_file.write('\n')
 	new_file.write(';endhostlist\n')
-	os.chmod(zonefile,644)
+	os.chmod(zonefile,436)
 
 
 # add a new host in a zonefile
@@ -112,7 +112,7 @@ def addNewHost(zonefile, hostname, hostip, rectype):
 	old_file.close()
 	remove(zonefile)
 	move(abs_path, zonefile)
-	os.chmod(zonefile,644)
+	os.chmod(zonefile,436)
 
 
 # delete a host in a zonefile
@@ -138,7 +138,7 @@ def deleteHost(zonefile, hostname):
 	old_file.close()
 	remove(zonefile) #Remove original file
 	move(abs_path, zonefile) #Move new file
-	os.chmod(zonefile,644)
+	os.chmod(zonefile,436)
 
 
 # updates a process(named) by sending SIGHUP(reloads configurations files :D)

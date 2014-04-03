@@ -8,20 +8,30 @@ from zeroconf.dns import ServiceInfo
 from zeroconf.mdns import Zeroconf
 import os
 
+
+# I/O modules
+from tempfile import mkstemp
+from shutil import move
+from os import remove, close, chmod
+
 # add a nameserver to /etc/resolv.conf
-def addNameserver(address):
+def addNameserver(resolv_conf_file,address,domain):
+	print('Updating nameserver on this machine')
 	fh, abs_path = mkstemp()
 	new_file = open(abs_path,'w')
-	old_file = open('/run/resolv.conf')
+	old_file = open(resolv_conf_file)
 	for line in old_file:
-		new_file.write(line)
-	new_file.write('nameserver\t'+address+'\n')
+		if '#' in line:
+			new_file.write(line)
+	new_file.write('search '+domain+'\n')
+	new_file.write('nameserver '+address+'\n')
 	new_file.close()
 	close(fh)
 	old_file.close()
-	remove('/run/resolv.conf')
-	move(abs_path, '/run/resolv.conf')
-	os.chmod('/run/resolv.conf',644)
+	remove(resolv_conf_file)
+	move(abs_path, resolv_conf_file)
+	#chmod uses octal!!! 436 actually is 644 in decimal
+	os.chmod(resolv_conf_file,436)
 
 # A listener class
 class MyListener(object):
@@ -47,8 +57,6 @@ class MyListener(object):
 	
 	def getServAddress(self):
 		return self.address
-
-# A function to add nameservers to resolv.conf
 
 
 # Main of the program
@@ -79,14 +87,13 @@ if __name__ == "__main__":
 			test += test
 		print('Local IP of DNS server  : ' + serv_ip)
 		#update nameserver
-		#addNameserver(serv_ip)
-	except:
-		print("Error in searching for DNS services")
+		addNameserver('/run/resolvconf/resolv.conf',serv_ip,'testopendyn.com')
+	except Exception as err:
+		print('Error in search for DNS server on the network')
 		sys.exit(0)
 	finally:
 		print('DNS server found....')
         	zc.close()
-
 
 	#register client service and nameprobe on mDNS
 	try:
@@ -113,12 +120,13 @@ if __name__ == "__main__":
 	except:
 		print("Error in name registration")
 		zc.close()
+		sys.exit(0)
 
     	finally:
 		raw_input('Press <enter> to update DNS server via RESTs')
 
 	#update DNS via REST
-	url = 'https://'+login+':'+password+'@'+'127.0.0.1'+':5000/hosts'
+	url = 'https://'+login+':'+password+'@'+serv_ip+':5000/hosts'
 	try:
 		print('test')
 		post_name = client_name.split('.')[0]
@@ -127,6 +135,7 @@ if __name__ == "__main__":
 	except:
 		print('Error on REST update.')
 		zc.close()
+		sys.exit(0)
 	finally:
 		raw_input('Press <enter> to exit application')
 		httprequests.httpDelete(url+'/'+post_name)
@@ -136,4 +145,3 @@ if __name__ == "__main__":
 		zc.close()
 	except:
 		print('Error exit')
-	
