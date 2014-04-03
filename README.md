@@ -1,7 +1,7 @@
-ricm4BoeyGuo
-============
+Project RICM4 2014 - Open DynDNS
+==========================
 
-Projet RICM4 2014 (BOEY Lionel et GUO Tianming)
+by BOEY Lionel and GUO Tianming
 
 **********************************
 A faire auparavant :
