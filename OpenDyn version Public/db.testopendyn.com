@@ -2,8 +2,8 @@
 ; BIND data file for testopendyn.com
 ;
 $TTL	604800
-@	IN	SOA	ns1.testopendyn.com. admin.testopendyn.com. (
-			3		; Serial
+@	IN	SOA	ns.testopendyn.com. admin.testopendyn.com. (
+			7		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
@@ -14,8 +14,9 @@ $TTL	604800
 	IN	A	55.55.55.1
 
 ;DNS Server
-	IN	NS	ns1.testopendyn.com.
+	IN	NS	ns.testopendyn.com.
 
 ;hostlist
-ns1	IN	A	11.11.11.11
+ns	IN	A	11.11.11.11
+host1	IN	A	22.22.22.22
 ;endhostlist
